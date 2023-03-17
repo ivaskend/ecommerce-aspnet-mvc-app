@@ -19,7 +19,7 @@ namespace Vinyls.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var data = await _service.GetAll();
+            var data = await _service.GetAllAsync();
             return View(data);
         }
         //Get:Artists/Create
@@ -35,8 +35,54 @@ namespace Vinyls.Controllers
             {
                 return View(artist);
             }
-            _service.Add(artist);
+            await _service.AddAsync(artist);
             return RedirectToAction(nameof(Index));
         }
-    } 
+
+        //Get:Artist/Details/1
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var artistDetails = await _service.GetByIdAsync(id);
+            if (artistDetails == null) return View("NotFound");
+            return View(artistDetails);
+        }
+
+        //Get:Artists/Update
+        public async Task<IActionResult> Edit(int id)
+        {
+            var artistDetails = await _service.GetByIdAsync(id);
+            if (artistDetails == null) return View("NotFound");
+            return View(artistDetails);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FullName,ProfilePictureURL,Bio")] Artist artist)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(artist);
+            }
+            await _service.UpdateAsync(id,artist);
+            return RedirectToAction(nameof(Index));
+        }
+
+        //Get:Artists/Delete
+        public async Task<IActionResult> Delete(int id)
+        {
+            var artistDetails = await _service.GetByIdAsync(id);
+            if (artistDetails == null) return View("NotFound");
+            return View(artistDetails);
+        }
+
+        [HttpPost,ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var artistDetails = await _service.GetByIdAsync(id);
+            if (artistDetails == null) return View("NotFound");
+
+            await _service.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
+    }
 }

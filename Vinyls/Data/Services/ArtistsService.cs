@@ -15,31 +15,37 @@ namespace Vinyls.Data.Services
         {
             _context = context;
         }
-        public void Add(Artist artist)
+        public async Task  AddAsync(Artist artist)
         {
-            _context.Artists.Add(artist);
-            _context.SaveChanges();
+            await _context.Artists.AddAsync(artist);
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var result = await _context.Artists.FirstOrDefaultAsync(n => n.Id == id);
+             _context.Artists.Remove(result);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Artist>> GetAll()
+        public async Task<IEnumerable<Artist>> GetAllAsync()
         {
             var result = await _context.Artists.ToListAsync();
             return result;
         }
 
-        public Artist GetById(int id)
+        public  async Task<Artist> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var result = await _context.Artists.FirstOrDefaultAsync(n => n.Id == id);
+            return result;
         }
 
-        public Artist Update(int id, Artist newArtist)
+        public async Task<Artist> UpdateAsync(int id, Artist newArtist)
         {
-            throw new NotImplementedException();
+            _context.Update(newArtist);
+            await _context.SaveChangesAsync();
+            return newArtist;
+
         }
     }
 }

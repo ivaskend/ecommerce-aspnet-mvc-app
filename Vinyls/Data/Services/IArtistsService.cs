@@ -8,12 +8,12 @@ namespace Vinyls.Data.Services
 {
    public interface IArtistsService
     {
-        Task<IEnumerable<Artist>> GetAll();
-        Artist GetById(int id);
-        void Add(Artist artist);
-        Artist Update(int id, Artist newArtist);
+        Task<IEnumerable<Artist>> GetAllAsync();
+        Task<Artist> GetByIdAsync(int id);
+        Task AddAsync(Artist artist);
+        Task<Artist> UpdateAsync(int id, Artist newArtist);
 
-        void Delete(int id);
+        Task  DeleteAsync(int id);
 
     }
 }

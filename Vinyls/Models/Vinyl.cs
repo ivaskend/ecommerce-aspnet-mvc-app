@@ -5,10 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Vinyls.Data;
+using Vinyls.Data.Base;
 
 namespace Vinyls.Models
 {
-    public class Vinyl
+    public class Vinyl : IEntityBase
     {
         [Key]
         public int Id { get; set; }

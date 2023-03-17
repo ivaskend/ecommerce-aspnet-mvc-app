@@ -7,8 +7,10 @@ using Vinyls.Models;
 
 namespace Vinyls.Data.Services
 {
-   public interface IArtistsService:IEntityBaseRepository<Artist>
+    public class AlbumGenresService:EntityBaseRepository<AlbumGenre>, IAlbumGenresService
     {
-
+        public AlbumGenresService(AppDbContext context): base(context)
+        {
+        }
     }
 }

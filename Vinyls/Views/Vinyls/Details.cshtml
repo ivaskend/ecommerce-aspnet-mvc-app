@@ -1,0 +1,74 @@
+﻿@model Vinyl
+@{
+    ViewData["Title"] = "Vinyl details";
+}
+
+    <div class="row align-content-center" id="karticka">
+        <div class="col-md-8 offset-2">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header" style="color:lightgrey; background-color:dimgrey">
+                            <p class="card-text">
+                                <h5 class="card-title">
+                                    @Model.Name
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="@Model.ImageURL" width="100%" alt="@Model.Name">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text">
+                                <b>Жанр: </b>
+                                <a asp-controller="AlbumGenres" asp-action="Details" asp-route-id="@Model.AlbumGenreId">
+                                    @Model.AlbumGenre.Name
+                                </a>
+                            </p>
+                            <p class="card-text">
+                                <b>Издавачка куќа: </b>
+                                <a asp-controller="RecordLabels" asp-action="Details" asp-route-id="@Model.RecordLabelId">
+                                    @Model.RecordLabel.FullName
+                                </a>
+                            </p>
+                            <p class="card-text"><b>Формат: </b>@Model.AlbumFormat</p>
+
+                            <p class="cart-text">
+                                <b>Artists</b>   
+<hr />
+<div class="row">
+    @foreach (var artist in Model.Artist_Vinyls)
+    {
+        <div class="column text-center" id="artisti">
+            <a asp-controller="Artists" asp-action="Details" asp-route-id="@artist.ArtistId">@artist.Artist.FullName</a>
+        </div>
+    }
+
+</div>
+                        </p>
+
+
+                    </div>
+                </div>
+<div class="col-md-12">
+    <div class="card-footer ">
+        <div>
+        </div>
+        <p class="card-text">
+            <a class="btn btn-outline-warning float-right" asp-action="Index">
+                <i class="bi bi-eye-fill"></i> Назад кон почетна
+            </a>
+            <a class="btn btn-warning text-white">
+
+                Додади во (@Model.Price.ToString("c")) <i class="bi bi-cart-plus"></i>
+            </a>
+        </p>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+
+</div>

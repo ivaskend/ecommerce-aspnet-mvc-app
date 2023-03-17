@@ -31,6 +31,9 @@ namespace Vinyls
             //Services configuration
 
             services.AddScoped<IArtistsService, ArtistsService>();
+            services.AddScoped<IRecordLabelsService, RecordLabelsService>();
+            services.AddScoped<IAlbumGenresService, AlbumGenresService>();
+            services.AddScoped<IVinylsService, VinylsService>();
             services.AddControllersWithViews();
         }
 

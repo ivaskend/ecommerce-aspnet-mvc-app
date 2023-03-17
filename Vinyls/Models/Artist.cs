@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Vinyls.Data.Base;
 
 namespace Vinyls.Models
 {
-    public class Artist
+    public class Artist : IEntityBase
     {
         [Key]
         public int Id { get; set; }

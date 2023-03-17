@@ -7,8 +7,7 @@ using Vinyls.Models;
 
 namespace Vinyls.Data.Services
 {
-   public interface IArtistsService:IEntityBaseRepository<Artist>
+    public interface IRecordLabelsService: IEntityBaseRepository<RecordLabel>
     {
-
     }
 }

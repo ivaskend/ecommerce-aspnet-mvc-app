@@ -3,47 +3,49 @@
     ViewData["Title"] = "List of Vinyls";
 }
 
-<div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="col-md-4 col-xs-6 border-primary mb-3">
-            <div class="card mb-3" style="max-width: 540px;color:rosybrown; background-color:saddlebrown">
-                <div class="row g-0">
-                    <div class="col-md-12">
-                        <div class="card-header" style="color:rosybrown; background-color:saddlebrown">
-                            <p class="card-text">
-                                <h5 class="card-title" style="color:rosybrown; background-color:saddlebrown">
-                                    @item.Name
-                                    <a class=" float-right" style="color:rosybrown"><i class="bi bi-pencil-square"></i></a>
-                                </h5>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <img src="@item.ImageURL" width="100%" alt="@item.Name">
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card-body">
-                            <p class="card-text"><b>Жанр: </b>@item.AlbumGenre.Name</p>
-                            <p class="card-text"><b>Формат: </b>@item.AlbumFormat</p>
-                            <p class="card-text"><b>Издавачка куќа: </b>@item.RecordLabel.FullName</p>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="card-footer ">
-                            <p class="card-text">
-                                <a class="btn btn-outline-warning float-right">
-                                    <i class="bi bi-eye-fill"></i> Повеќе детали
-                                </a>
-                                <a class="btn btn-warning text-white">
 
-                                    Додади во (@item.Price.ToString("c")) <i class="bi bi-cart-plus"></i>
-                                </a>
-                            </p>
+<div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 col-xs-6 border-primary mb-3">
+                <div class="card mb-3" style="max-width: 540px;color:rosybrown; background-color:saddlebrown">
+                    <div class="row g-0">
+                        <div class="col-md-12">
+                            <div class="card-header" style="color:rosybrown; background-color:saddlebrown">
+                                <p class="card-text">
+                                    <h5 class="card-title" style="color:rosybrown; background-color:saddlebrown">
+                                        @item.Name
+                                        <a class=" float-right" style="color:rosybrown"><i class="bi bi-pencil-square"></i></a>
+                                    </h5>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="@item.ImageURL" width="100%" alt="@item.Name">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <p class="card-text"><b>Жанр: </b>@item.AlbumGenre.Name</p>
+                                <p class="card-text"><b>Формат: </b>@item.AlbumFormat</p>
+                                <p class="card-text"><b>Издавачка куќа: </b>@item.RecordLabel.FullName</p>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card-footer ">
+                                <p class="card-text">
+                                    <a class="btn btn-outline-warning float-right" asp-action="Details" asp-route-id="@item.Id">
+                                        <i class="bi bi-eye-fill"></i> Повеќе детали
+                                    </a>
+                                    <a class="btn btn-warning text-white">
+
+                                        Додади во (@item.Price.ToString("c")) <i class="bi bi-cart-plus"></i>
+                                    </a>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
+

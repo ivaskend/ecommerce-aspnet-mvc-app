@@ -5,22 +5,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Vinyls.Data;
+using Vinyls.Data.Services;
 
 namespace Vinyls.Controllers
 {
     public class VinylsController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly IVinylsService _service;
 
-        public VinylsController(Data.AppDbContext context)
-        {
-            _context = context;
+        public VinylsController(IVinylsService service)
+        { 
+            _service = service;
         }
         public async Task<IActionResult> Index()
         {
-            var allVinyls = await _context.Vinyls.Include(n=>n.AlbumGenre).ToListAsync();
-            allVinyls = await _context.Vinyls.Include(m => m.RecordLabel).ToListAsync();
+            var allVinyls = await _service.GetAllAsync(n=> n.AlbumGenre);
+            allVinyls = await _service.GetAllAsync(m=>m.RecordLabel);
             return View(allVinyls);
         }
+
+        //GET:Vinyls/Details/1
+        public async Task<IActionResult> Details(int id)
+        {
+            var vinylDetail = await _service.GetVinylByIdAsync(id);
+            return View(vinylDetail);
+        }
+
     }
 }

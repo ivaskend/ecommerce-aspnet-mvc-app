@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +13,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Vinyls.Data;
+using Vinyls.Data.Cart;
 using Vinyls.Data.Services;
+using Vinyls.Models;
 
 namespace Vinyls
 {
@@ -34,6 +39,19 @@ namespace Vinyls
             services.AddScoped<IRecordLabelsService, RecordLabelsService>();
             services.AddScoped<IAlbumGenresService, AlbumGenresService>();
             services.AddScoped<IVinylsService, VinylsService>();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
+            services.AddScoped<IOrdersService, OrdersService>();
+            //Authentication and authorization
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+            services.AddMemoryCache();
+            services.AddSession();
+            services.AddAuthentication(options => 
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            
+            });
             services.AddControllersWithViews();
         }
 
@@ -54,6 +72,11 @@ namespace Vinyls
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
+            //Authentication and authorization
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseAuthorization();
 
@@ -67,6 +90,7 @@ namespace Vinyls
             //Seed Database
 
             AppDbInitializer.Seed(app);
+            AppDbInitializer.SeedUsersAndRolesAsync(app).Wait();
         }
     }
 }

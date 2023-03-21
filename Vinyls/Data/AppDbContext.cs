@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using Vinyls.Models;
 
 namespace Vinyls.Data
 {
-    public class AppDbContext:DbContext
+    public class AppDbContext:IdentityDbContext<ApplicationUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -34,6 +35,12 @@ namespace Vinyls.Data
         public DbSet<Artist_Vinyl> Artists_Vinyls { get; set; }
         public DbSet<AlbumGenre> AlbumGenres { get; set; }
         public DbSet<RecordLabel> RecordLabels { get; set; }
+
+        //Orders related tables
+
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<ShoppingCartItem> ShoppingCartItems  { get; set; }
 
 
     }

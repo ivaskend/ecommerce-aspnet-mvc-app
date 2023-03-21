@@ -18,7 +18,7 @@
                 {
                     <tr>
                         <td class="align-middle">
-                            <b> @Html.DisplayFor(modelItem => item.Name)</b>  
+                            <b> @Html.DisplayFor(modelItem => item.Name)</b>
                         </td>
                         <td class="align-middle">
                             @Html.DisplayFor(modelItem => item.Description)
@@ -41,6 +41,4 @@
     </div>
 </div>
 
-<div style="position:fixed; right:25px;bottom:25px;" class="text-white">
-    <a asp-action="Create" class="btn btn-warning"> <i class="bi bi-plus-circle"></i>Додади</a>
-</div>
+@await Html.PartialAsync("_CreateItem", "AlbumGenres") 

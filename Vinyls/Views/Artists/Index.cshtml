@@ -3,6 +3,8 @@
     ViewData["Title"] = "List of Artists";
 }
 
+
+
 <div class="row">
     <div class="col-md-10 offset-md-1">
         <table class="table">
@@ -11,7 +13,11 @@
                     <th>@Html.DisplayNameFor(model => model.ProfilePictureURL)</th>
                     <th>@Html.DisplayNameFor(model => model.FullName)</th>
                     <th>@Html.DisplayNameFor(model => model.Bio)</th>
-                    <th>Actions</th>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <th>Акции</th>
+
+                    }
                 </tr>
             </thead>
             <tbody>
@@ -28,14 +34,14 @@
                             @Html.DisplayFor(modelItem => item.Bio)
 
                         </td>
-                        <td class="align-middle">
-                            <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i>Промени</a> |
-                            <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i>Повеќе детали</a> |
-                            <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i>Избриши</a>
-
-                        </td>
-
-
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <td class="align-middle">
+                                <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i>Промени</a> |
+                                <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i>Повеќе детали</a> |
+                                <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i>Избриши</a>
+                            </td>
+                        }
                     </tr>
                 }
             </tbody>

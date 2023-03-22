@@ -12,62 +12,47 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light  border-bottom box-shadow mb-3" id="navigacija">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Vinyls" asp-action="Index">Плочизам</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Vinyls" asp-action="Index" style="color: #fff2df">Плочизам</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="navbar-nav flex-grow-1">
                             <a class="nav-link text-dark" asp-controller="Vinyls" asp-action="Index">
-                                <i>
-                                </i>Винили
                             </a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
-                                <i class="bi bi-gear"></i>
-                                Навигација
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" asp-controller="AlbumGenres" asp-action="Index"><i class="bi bi-camera-reels"></i>Жанрови</a>
-                                <a class="dropdown-item" asp-controller="RecordLabels" asp-action="Index"><i class="bi bi-headset"></i>Издавачки куќи</a>
-                                <a class="dropdown-item" asp-controller="Artists" asp-action="Index"><i class="bi bi-person-square"></i>Артисти</a>
-                            </div>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown" style="color: #fff2df">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false" style="color: #fff2df">
+                                    <i class="bi bi-gear"></i>
+                                    Навигација
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-controller="AlbumGenres" asp-action="Index"><i class="bi bi-camera-reels"></i>Жанрови</a>
+                                    <a class="dropdown-item" asp-controller="RecordLabels" asp-action="Index"><i class="bi bi-headset"></i>Издавачки куќи</a>
+                                    <a class="dropdown-item" asp-controller="Artists" asp-action="Index"><i class="bi bi-person-square"></i>Артисти</a>
+                                </div>
 
-                        </li>
+                            </li>
+                        }
                     </ul>
                     <form class="form-inline my-2 my-lg-0" asp-controller="Vinyls" asp-action="Filter" style="padding-right: 25px;">
                         <input name="searchString" type="text" class="form-control" placeholder="Пребарај плоча..." aria-label="Recipient's username" aria-describedby="button-addon2">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
+                        <button style="background-color: #a2836e; color: #fff2df" class="btn btn my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
                     </form>
 
                     <ul class="navbar-nav">
 
-                        @await Component.InvokeAsync("ShoppingCartSummary") 
-                        
+                        @await Component.InvokeAsync("ShoppingCartSummary")
+
                     </ul>
-                    <form asp-controller="Account" asp-action="Login">
-                        <a class="btn btn-outline-warning my-2 my-sm-0" asp-action="Account" asp-action="Login">
-                            <i class="bi bi-box-arrow-in-right"> </i> Најави се
-                        </a>
-                    </form>
 
-                    @*user profile section*@
-                    <div class="dropdown">
-                        <button class="btn btn-outline-warning dropdown-toggle" type="button" id="profile-btn" data-toggle="dropdown"
-                                aria-expanded="false"><i class="bi bi-person-badge"></i>Добредојде</button>
-                        <ul class="dropdown-menu" aria-labelledby="profile-btn">
-                            <li>
-                                <a class="dropdown-item" asp-controller="Orders" asp-action="Index">
-                                    <i class="bi bi-list"> </i>  Нарачки
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
+                    <partial name="_Identity.cshtml"    />
 
                 </div>
             </div>

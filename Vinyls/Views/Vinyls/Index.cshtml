@@ -3,19 +3,27 @@
     ViewData["Title"] = "List of Vinyls";
 }
 
+@*@await Html.PartialAsync("Carousel")*@
+
+
+
 
 <div class="row">
     @foreach (var item in Model)
     {
-        <div class="col-md-4 col-xs-6 border-primary mb-3">
-            <div class="card mb-3" style="max-width: 540px;color:rosybrown; background-color:saddlebrown">
+        <div class="col-md-4 col-xs-4 border-primary mb-3">
+            <div class="shadow-sm mb-3 bg-body rounded" style="max-width: 540px;color:rosybrown; background-color:saddlebrown" id="karticka1">
                 <div class="row g-0">
                     <div class="col-md-12">
-                        <div class="card-header" style="color:rosybrown; background-color:saddlebrown">
+                        <div class="card-header" style="color: #fff2df; background-color: #674d3c ">
                             <p class="card-text">
-                                <h5 class="card-title" style="color:rosybrown; background-color:saddlebrown">
+                                <h5 class="card-title" style="color: #fff2df; background-color: #674d3c ">
                                     @item.Name
-                                    <a class=" float-right" style="color:rosybrown" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
+                                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                    {
+                                        <a class=" float-right" style="color:rosybrown" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
+
+                                    }
                                 </h5>
                             </p>
                         </div>
@@ -36,9 +44,9 @@
                                 <a class="btn btn-outline-warning float-right" asp-action="Details" asp-route-id="@item.Id">
                                     <i class="bi bi-eye-fill"></i> Повеќе детали
                                 </a>
-                                <a class="btn btn-warning text-white" asp-controller="Orders" asp-action="AddToShoppingCart" asp-route-id="@item.Id">
+                                <a class="btn btn-outline-warning" asp-controller="Orders" asp-action="AddToShoppingCart" asp-route-id="@item.Id">
 
-                                    Додади во (@item.Price.ToString()) <i class="bi bi-cart-plus"></i>
+                                    Додади во  <i class="bi bi-cart-plus"></i>(@item.Price.ToString())
                                 </a>
                             </p>
                         </div>

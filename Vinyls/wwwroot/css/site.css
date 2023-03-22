@@ -2,7 +2,8 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-    background-color:white ;
+    /*background-color: #a2836e;*/
+    background-color:white;
     white-space: normal;
     text-align: center;
     word-break: break-all;
@@ -59,8 +60,10 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    /*background-color: #a2836e*/
+    background-color:white;
 }
 .footer {
   position: absolute;
@@ -72,5 +75,10 @@ body {
 #karticka {
     display: flex;
     justify-content: center;
+    
+
+}
+#karticka1 {
+    background-image: url("https://wallpapercave.com/wp/wp2725720.jpg")
 
 }

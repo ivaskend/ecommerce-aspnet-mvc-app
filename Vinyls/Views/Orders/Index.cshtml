@@ -16,7 +16,10 @@
                     <th>Број на нарачка</th>
                     <th>Ставки</th>
                     <th>Вкупно</th>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
                     <th>Корисничко име</th>
+                    }
                 </tr>
             </thead>
             <tbody>
@@ -28,20 +31,25 @@
                         <ul style="list-style-type:none">
                             @foreach (var item in order.OrderItems)
                             {
-                            <li>
-                                <div class="alert alert-info" role="alert">
-                                    <span class="badge bg-warning">@item.Amount</span>[@item.Price.ToString()] - @item.Vinyl.Name
-                                </div>
-                            </li>
+                                <li>
+                                    <div class="alert alert-info" role="alert">
+                                        <span class="badge bg-warning">@item.Amount</span>[@item.Price.ToString()] - @item.Vinyl.Name
+                                    </div>
+                                </li>
                             }
-                            
+
                         </ul>
                     </td>
                     <td class="align-middle">
                         @order.OrderItems.Select(m => m.Vinyl.Price * m.Amount).Sum().ToString()
                     </td>
 
-                    <td class="align-middle">-</td>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                    <td class="align-middle">@order.User.FullName</td>
+                    }
+
+                    
 
                 </tr>
 
